@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Carrito de Compras - Estilo Amazon</title>
+<style>
+    /* Estilos generales */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Cabecera */
+    .header {
+        background-color: #232f3e;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .search-bar {
+        width: 100%;
+        display: flex;
+        margin-top: 10px;
+        max-width: 400px; /* Limitar el tamaño del campo de búsqueda */
+    }
+
+    .search-bar input {
+        width: 80%;
+        padding: 8px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .search-bar button {
+        padding: 8px 12px;
+        background-color: #febd69;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background-color: #f90;
+    }
+
+    /* Contenedor principal */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    /* Listado de productos */
+    .productos {
+        width: 100%;
+        max-width: 70%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .producto {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 48%;
+    }
+
+    .producto img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    .producto-info {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .producto button {
+        background-color: #febd69;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .producto button:hover {
+        background-color: #f90;
+    }
+
+    /* Línea de separación */
+    .linea-separacion {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+    }
+
+    /* Carrito de compras */
+    .carrito {
+        width: 100%;
+        max-width: 30%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .carrito h2 {
+        text-align: center;
+    }
+
+    .carrito ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .carrito li {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+
+    .carrito-total {
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .vaciar-carrito, .buscar-mas, .comprar {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+
+    .vaciar-carrito {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .vaciar-carrito:hover {
+        background-color: #c82333;
+    }
+
+    .buscar-mas {
+        background-color: #febd69;
+        color: #333;
+    }
+
+    .buscar-mas:hover {
+        background-color: #f90;
+    }
+
+    .comprar {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .comprar:hover {
+        background-color: #218838;
+    }
+
+    /* Mejoras de responsividad */
+    @media (max-width: 768px) {
+        .productos {
+            max-width: 100%;
+            gap: 10px;
+        }
+
+        .producto {
+            width: 100%;
+            max-width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .carrito {
+            max-width: 100%;
+            margin-top: 30px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Cabecera -->
+<div class="header">
+    <h1>INNOVA Logistic</h1>
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar productos...">
+        <button>Buscar</button>
+    </div>
+</div>
+
+<!-- Contenedor principal -->
+<div class="container">
+    <!-- Listado de productos -->
+    <div class="productos" id="lista-productos">
+        <div class="producto" data-id="1" data-nombre="Laptop" data-precio="800000">
+            <img src="https://app.pardux.com/render/img-webp/107/premiumtech/3420-2-634-6503433177fa6" alt="Laptop">
+            <div class="producto-info">
+                <h3>Laptop</h3>
+                <p>Precio: $800,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+        <div class="producto" data-id="2" data-nombre="Smartphone" data-precio="500000">
+            <img src="https://i.blogs.es/d41438/1366_2000/500_333.jpeg" alt="Smartphone">
+            <div class="producto-info">
+                <h3>Smartphone</h3>
+                <p>Precio: $500,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+        <div class="producto" data-id="3" data-nombre="Audífonos" data-precio="150000">
+            <img src="https://acdn.mitiendanube.com/stores/093/864/products/7707278179171_eb-800-ec-51-0da251c51254436d7816877948489229-1024-1024.jpg" alt="Audífonos">
+            <div class="producto-info">
+                <h3>Audífonos</h3>
+                <p>Precio: $150,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+
+        <!-- Línea de separación -->
+        <div class="linea-separacion"></div>
+
+        <!-- Nuevos productos -->
+        <div class="producto" data-id="4" data-nombre="TV" data-precio="1200000">
+            <img src="https://fullhogar.com.co/cdn/shop/files/HYLED428GIM-1.jpg?v=1714177478&width=1200" alt="TV">
+            <div class="producto-info">
+                <h3>TV</h3>
+                <p>Precio: $1,200,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+        <div class="producto" data-id="5" data-nombre="Inalámbricos" data-precio="200000">
+            <img src="https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/123422526_01/w=800,h=800,fit=pad" alt="Inalámbricos">
+            <div class="producto-info">
+                <h3>Inalámbricos</h3>
+                <p>Precio: $200,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+        <div class="producto" data-id="6" data-nombre="Reloj Inteligente" data-precio="250000">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_873532-MLA54949486711_042023-O.webp" alt="Reloj Inteligente">
+            <div class="producto-info">
+                <h3>Reloj Inteligente</h3>
+                <p>Precio: $250,000</p>
+            </div>
+            <button class="btn-agregar">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <div class="carrito">
+        <h2>Carrito de Compras</h2>
+        <ul id="lista-carrito">
+            <li id="producto-vacio">Tu carrito está vacío.</li>
+        </ul>
+        <p class="carrito-total">Total: $0</p>
+        <button class="vaciar-carrito">Vaciar Carrito</button>
+        <a href="comprar.html" class="comprar">Comprar</a>
+        <a href="seguircomprando.html" class="buscar-mas">Seguir comprando</a>
+    </div>
+</div>
+
+<script>
+    // Variables
+    const carrito = [];
+    const listaCarrito = document.getElementById('lista-carrito');
+    const carritoTotal = document.querySelector('.carrito-total');
+    
+    // Función para actualizar el carrito
+    function actualizarCarrito() {
+        // Limpiar la lista de productos en el carrito
+        listaCarrito.innerHTML = '';
+        let total = 0;
+
+        if (carrito.length === 0) {
+            listaCarrito.innerHTML = '<li id="producto-vacio">Tu carrito está vacío.</li>';
+        } else {
+            // Mostrar productos en el carrito
+            carrito.forEach(producto => {
+                const li = document.createElement('li');
+                li.textContent = `${producto.nombre} - $${producto.precio}`;
+                listaCarrito.appendChild(li);
+                total += producto.precio;
+            });
+        }
+
+        // Actualizar el total
+        carritoTotal.textContent = `Total: $${total}`;
+    }
+
+    // Agregar productos al carrito
+    const botonesAgregar = document.querySelectorAll('.btn-agregar');
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            const producto = e.target.closest('.producto');
+            const nombre = producto.getAttribute('data-nombre');
+            const precio = parseInt(producto.getAttribute('data-precio'));
+
+            carrito.push({ nombre, precio });
+            actualizarCarrito();
+        });
+    });
+
+    // Vaciar carrito
+    document.querySelector('.vaciar-carrito').addEventListener('click', () => {
+        carrito.length = 0;
+        actualizarCarrito();
+    });
+</script>
+
+</body>
+</html>
